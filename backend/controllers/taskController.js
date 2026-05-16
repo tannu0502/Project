@@ -38,5 +38,57 @@ const createTask = async (req, res) => {
     });
   }
 };
+const getTasks = async (req, res) => {
+  try {
+    const tasks = await prisma.task.findMany({
+      include: {
+        project: true,
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
 
-module.exports = { createTask };
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({
+      message: "Get tasks error",
+      error: error.message,
+    });
+  }
+};
+
+const updateTaskStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const task = await prisma.task.update({
+      where: {
+        id: parseInt(req.params.id),
+      },
+      data: {
+        status,
+      },
+    });
+
+    res.json({
+      message: "Task status updated",
+      task,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Update task error",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = {
+  createTask,
+  getTasks,
+  updateTaskStatus,
+};
