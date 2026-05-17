@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Projects from "./pages/Projects";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Projects from "./pages/Projects";
 import Dashboard from "./pages/Dashboard";
 import MyTasks from "./pages/MyTasks";
+import OverdueTasks from "./pages/OverdueTasks";
 function App() {
   const token = localStorage.getItem("token");
 
@@ -33,6 +34,10 @@ function App() {
         <Route
           path="/my-tasks"
           element={token ? <MyTasks /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/overdue"
+          element={token ? <OverdueTasks /> : <Navigate to="/login" />}
         />
       </Routes>
     </BrowserRouter>

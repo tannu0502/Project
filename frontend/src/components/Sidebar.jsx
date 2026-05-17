@@ -30,9 +30,12 @@ function Sidebar({ user }) {
           My Tasks
         </a>
 
-        <div className="text-zinc-300 px-4 py-3 rounded-xl">
+        <a
+          href="/overdue"
+          className="block text-zinc-300 px-4 py-3 rounded-xl hover:bg-zinc-700"
+        >
           Overdue
-        </div>
+        </a>
       </nav>
 
       {user?.role === "ADMIN" && (
