@@ -3,7 +3,7 @@ import Projects from "./pages/Projects";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-
+import MyTasks from "./pages/MyTasks";
 function App() {
   const token = localStorage.getItem("token");
 
@@ -29,6 +29,10 @@ function App() {
           element={
             token ? <Dashboard /> : <Navigate to="/login" />
           }
+        />
+        <Route
+          path="/my-tasks"
+          element={token ? <MyTasks /> : <Navigate to="/login" />}
         />
       </Routes>
     </BrowserRouter>

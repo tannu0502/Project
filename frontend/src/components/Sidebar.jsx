@@ -23,9 +23,12 @@ function Sidebar({ user }) {
           Projects
         </a>  
 
-        <div className="text-zinc-300 px-4 py-3 rounded-xl">
+        <a
+          href="/my-tasks"
+          className="block text-zinc-300 px-4 py-3 rounded-xl hover:bg-zinc-700"
+        >
           My Tasks
-        </div>
+        </a>
 
         <div className="text-zinc-300 px-4 py-3 rounded-xl">
           Overdue
