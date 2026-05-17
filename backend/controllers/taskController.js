@@ -40,7 +40,16 @@ const createTask = async (req, res) => {
 };
 const getTasks = async (req, res) => {
   try {
+    let whereCondition = {};
+
+    if (req.user.role === "MEMBER") {
+      whereCondition = {
+        assignedToId: req.user.id,
+      };
+    }
+
     const tasks = await prisma.task.findMany({
+      where: whereCondition,
       include: {
         project: true,
         assignedTo: {
@@ -48,8 +57,20 @@ const getTasks = async (req, res) => {
             id: true,
             name: true,
             email: true,
+            role: true,
           },
         },
+        createdBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 

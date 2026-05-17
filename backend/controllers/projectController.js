@@ -37,7 +37,11 @@ const createProject = async (req, res) => {
 
 const getProjects = async (req, res) => {
   try {
-    const projects = await prisma.project.findMany();
+    const projects = await prisma.project.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
     res.json(projects);
   } catch (error) {
@@ -48,4 +52,7 @@ const getProjects = async (req, res) => {
   }
 };
 
-module.exports = { createProject, getProjects };
+module.exports = {
+  createProject,
+  getProjects,
+};
